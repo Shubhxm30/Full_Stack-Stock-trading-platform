@@ -1,4 +1,4 @@
-
+require("dotenv").config();
 const authRouter = require('./routes/authRoutes.js')
 const userRouter = require('./routes/userRoutes.js')
 const cookieParser = require("cookie-parser")
@@ -7,13 +7,13 @@ const userAuth = require('./middleware/userAuth.js')
 
 const {UserModel} = require('./model/UserModel.js');
 
-require("dotenv").config();
-
 const express = require("express")
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
+// console.log("Loaded Mongo URL:", process.env.MONGO_URL); // add this
+// mongoose.connect(process.env.MONGO_URL);
 
 const { HoldingsModel } = require("./model/HoldingsModel");
 const { PositionsModel } = require("./model/PositionsModel");
@@ -24,8 +24,8 @@ const uri = process.env.MONGO_URL;
 
 //  
 
-const allowedOrigins = ['https://onestock.netlify.app', 'https://onestock.netlify.app/dashboard']
-// const allowedOrigins = ['http://localhost:3000','http://localhost:3001']
+// const allowedOrigins = ['https://onestock.netlify.app', 'https://onestock.netlify.app/dashboard']
+const allowedOrigins = ['http://localhost:3003','http://localhost:3001']
 
 const app = express();
 
@@ -45,7 +45,7 @@ app.get("/allHoldings", async (req, res) => {
 });
 
 app.get("/allPositions", async (req, res) => {
-  let allPositions = await PositionsModel.find({});
+  let allPositions = await PositionsModel.find({});//
   res.json(allPositions);
 });
 
